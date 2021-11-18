@@ -7,11 +7,30 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.View;
+import android.widget.Button;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CardActivity extends AppCompatActivity {
 
+    //Button create = findViewById(R.id.create);
+    //public List<Card> cards = new ArrayList<>();
+
     boolean rBound = false;
     CardService cardService;
+    Button create;
+
+    /*public Card createCard(String name, String lastname, String company, String role){
+        Card card = new Card(name, lastname, company, role);
+
+        return card;
+    }*/
+
+    public void switchActivity(View v) {
+        if(v.getId() == R.id.create){ Intent intent = new Intent(this, CreateCardActivity.class); startActivity(intent);}
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,4 +64,6 @@ public class CardActivity extends AppCompatActivity {
         unbindService(connection);
         rBound = false;
     }
+
+
 }
