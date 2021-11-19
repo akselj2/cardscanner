@@ -15,18 +15,12 @@ import java.util.List;
 
 public class CardActivity extends AppCompatActivity {
 
-    //Button create = findViewById(R.id.create);
-    //public List<Card> cards = new ArrayList<>();
+    List<Card> cards = new ArrayList<>();
 
-    boolean rBound = false;
-    CardService cardService;
-    Button create;
-
-    /*public Card createCard(String name, String lastname, String company, String role){
-        Card card = new Card(name, lastname, company, role);
-
-        return card;
-    }*/
+    String firstname;
+    String lastname;
+    String company;
+    String role;
 
     public void switchActivity(View v) {
         if(v.getId() == R.id.create){ Intent intent = new Intent(this, CreateCardActivity.class); startActivity(intent);}
@@ -36,33 +30,44 @@ public class CardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
+
+        Bundle bundle = getIntent().getExtras();
+        if (getIntent().getExtras() != null) {
+            firstname = bundle.get("firstname").toString();
+            lastname = bundle.get("lastname").toString();
+            company = bundle.get("company").toString();
+            role = bundle.get("role").toString();
+
+            Card card = new Card(firstname, lastname, company, role);
+
+            cards.add(card);
+            for (int i = 0; i < cards.size(); i++) {
+                System.out.println(cards.get(i).toString());;
+            }
+        }
+
+
     }
-    private final ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            CardService.BoundBinder binder = (CardService.BoundBinder) service;
-            cardService = binder.getService();
 
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-
-        }
-    };
+    @Override
+    public String toString() {
+        return "CardActivity{" +
+                "cards=" + cards +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", company='" + company + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Intent intent = new Intent(this, CardService.class);
-        bindService(intent, connection, this.BIND_AUTO_CREATE);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        unbindService(connection);
-        rBound = false;
     }
 
 
