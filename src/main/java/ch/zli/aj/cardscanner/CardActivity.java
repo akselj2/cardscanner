@@ -29,6 +29,10 @@ public class CardActivity extends AppCompatActivity {
         if(v.getId() == R.id.create){ Intent intent = new Intent(this, CreateCardActivity.class); startActivity(intent);}
     }
 
+    public void createCard(String name, String company, String role){
+        cards.add(new Card(name, company, role));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +43,15 @@ public class CardActivity extends AppCompatActivity {
         try {
             Bundle bundle = getIntent().getExtras();
             if (getIntent().getExtras() != null) {
+
                 firstname = bundle.get("firstname").toString();
                 lastname = bundle.get("lastname").toString();
                 company = bundle.get("company").toString();
                 role = bundle.get("role").toString();
 
-                Card card = new Card(firstname, lastname, company, role);
+                String name = firstname + " " + lastname;
+
+                Card card = new Card(name, company, role);
 
                 cards.add(card);
                 for (int i = 0; i < cards.size(); i++) {
@@ -56,7 +63,6 @@ public class CardActivity extends AppCompatActivity {
         }
 
         RecyclerView recyclerView =  (RecyclerView) findViewById(R.id.recyclerView);
-        cards = Card.createCards(2);
 
         Adapter adapter = new Adapter(cards);
 

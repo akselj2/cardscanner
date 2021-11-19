@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,8 +49,6 @@ public class CreateCardActivity extends AppCompatActivity {
         String lastname = lastnameText.getText().toString();
         String company = companyText.getText().toString();
         String role = roleText.getText().toString();
-
-        Card card = new Card(firstname, lastname, company, role);
 
         Intent intent = new Intent(this, CardActivity.class);
         intent.putExtra("firstname", firstname);

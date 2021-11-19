@@ -39,9 +39,4 @@ public class CardService extends Service {
         return binder;
         //TODO: return the communication channel to the service
     }
-
-    public void createCard(String firstname, String lastname, String company, String role){
-        Card card = new Card(firstname, lastname, company, role);
-        cardList.add(card);
-    }
 }

@@ -74,11 +74,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         Card card = mCards.get(position);
 
         TextView firstnameTextView = holder.firstnameTextView;
-        TextView lastnameTextView = holder.lastnameTextView;
         TextView companyTextView = holder.companyTextView;
         TextView roleTextView = holder.roleTextView;
-        firstnameTextView.setText(card.getFirstname());
-        lastnameTextView.setText(card.getLastname());
+        firstnameTextView.setText(card.getName());
         companyTextView.setText(card.getCompany());
         roleTextView.setText(card.getRole());
     }
