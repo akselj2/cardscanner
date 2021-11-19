@@ -1,6 +1,9 @@
 package ch.zli.aj.cardscanner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -31,33 +34,35 @@ public class CardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
 
-        Bundle bundle = getIntent().getExtras();
-        if (getIntent().getExtras() != null) {
-            firstname = bundle.get("firstname").toString();
-            lastname = bundle.get("lastname").toString();
-            company = bundle.get("company").toString();
-            role = bundle.get("role").toString();
 
-            Card card = new Card(firstname, lastname, company, role);
 
-            cards.add(card);
-            for (int i = 0; i < cards.size(); i++) {
-                System.out.println(cards.get(i).toString());;
+        try {
+            Bundle bundle = getIntent().getExtras();
+            if (getIntent().getExtras() != null) {
+                firstname = bundle.get("firstname").toString();
+                lastname = bundle.get("lastname").toString();
+                company = bundle.get("company").toString();
+                role = bundle.get("role").toString();
+
+                Card card = new Card(firstname, lastname, company, role);
+
+                cards.add(card);
+                for (int i = 0; i < cards.size(); i++) {
+                    System.out.println(cards.get(i).toString());;
+                }
             }
+        } catch (Exception e){
+            System.out.println("BUNDLED FAILED, REASON:" + e);
         }
 
+        RecyclerView recyclerView =  (RecyclerView) findViewById(R.id.recyclerView);
+        cards = Card.createCards(2);
 
-    }
+        Adapter adapter = new Adapter(cards);
 
-    @Override
-    public String toString() {
-        return "CardActivity{" +
-                "cards=" + cards +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", company='" + company + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+        recyclerView.setAdapter(adapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override

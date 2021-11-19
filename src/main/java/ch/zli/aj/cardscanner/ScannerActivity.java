@@ -111,7 +111,7 @@ public class ScannerActivity extends AppCompatActivity {
             @Override
             public void onQRCodeFound(String _qrCode) {
                 qrCode = _qrCode;
-                qrCodeFoundButton.setVisibility(View.INVISIBLE);
+                qrCodeFoundButton.setVisibility(View.VISIBLE);
             }
 
             @Override
